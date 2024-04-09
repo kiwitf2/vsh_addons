@@ -53,7 +53,7 @@ function AdjustHaleHealth(booted)
     local boss = GetBossPlayers()[0];
     local currHealth = boss.GetHealth();
     local oldMaxHealth = GetStartingHealth(oldMercCount);
-    local adjustedMaxHealth = GetStartingHealth(adjustedMercCount)
+    local adjustedMaxHealth = GetStartingHealth(adjustedMercCount);
 
     local healthDiff = oldMaxHealth - adjustedMaxHealth;
 
@@ -69,7 +69,11 @@ function AdjustHaleHealth(booted)
     if(healthPenalty <= 0) return;
 
     boss.TakeDamageCustom(boss, boss, null, Vector(0.000001, 0.000001, 0.000001), Vector(0.000001, 0.000001, 0.000001), healthPenalty, DMG_PREVENT_PHYSICS_FORCE, TF_DMG_CUSTOM_BLEEDING);
-    ClientPrint(null, 3, "Removed " + healthPenalty + " health from Hale to compensate for idling players.");
+
+    // Need this because all the damage modifiers in the VScript fuck with the calculations.
+    local actualNewHealth = boss.GetHealth();
+    local actualHealthPenalty = currHealth - actualNewHealth;
+    ClientPrint(null, 3, "Removed " + actualHealthPenalty + " health from Hale to compensate for idling players.");
 }
 
 // Enable the AFK checker.
