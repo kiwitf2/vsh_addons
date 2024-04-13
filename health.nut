@@ -4,9 +4,13 @@
     if (mercCount < 2)
     {
         return 1000;
+    } else if (mercCount > 32) {
+        local baseHealth = GetStartingHealth(32);
+        local unroundedH = baseHealth * mercCount / 32;
+        local roundedH = floor(unroundedH / 100) * 100;
+        return roundedH;
     }
-    local factor = clampCeiling(1, 1.0 - ((mercCount - 32.0) / 200.0));
-    local unrounded = mercCount * mercCount * factor * API_GetFloat("health_factor") + (mercCount < 6 ? 1300 : 2000);
+    local unrounded = mercCount * mercCount * API_GetFloat("health_factor") + (mercCount < 6 ? 1300 : 2000);
     local rounded = floor(unrounded / 100) * 100;
     return rounded;
 }
