@@ -64,7 +64,10 @@ function AdjustHaleHealth(booted)
         damageDealtByAFKPlayers = damageDealtByAFKPlayers + damage;
     }
 
-    local healthPenalty = floor(clampCeiling(currHealth - 1,  healthDiff * (currHealth / oldMaxHealth))) - damageDealtByAFKPlayers;
+    // This is the formula used in received_damage_scaling
+    local mercMultiplier = clampFloor(1, 1.85 - (GetAliveMercCount() * 1.0) / adjustedMercCount);
+
+    local healthPenalty = floor(clampCeiling((currHealth - 1) / mercMultiplier,  healthDiff * (currHealth / oldMaxHealth))) - damageDealtByAFKPlayers;
 
     if(healthPenalty <= 0) return;
 
