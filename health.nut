@@ -4,9 +4,10 @@
     if (mercCount < 2)
     {
         return 1000;
-    } else if (mercCount > 32) {
-        local baseHealth = GetStartingHealth(32);
-        local unroundedH = baseHealth * mercCount / 32;
+    } else if (mercCount > 31) {
+        local baseHealth = GetStartingHealth(31);
+        local increment = baseHealth - GetStartingHealth(30);
+        local unroundedH = baseHealth + (increment * (mercCount - 31));
         local roundedH = floor(unroundedH / 100) * 100;
         return roundedH;
     }

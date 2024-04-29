@@ -27,10 +27,11 @@ Changes:
   - $N$ is the number of RED players at the start of the round.
   - $H$ is the max health of Hale.
 - Hale's health:
-  - Added an additional factor that reduces Hale's health for >32 players.
-  - Old formula (for $N \gt 32$): $H = 40N^2 + 2000$
-  - New Formula (for $N \gt 32$): $H = 40N^2 * (1 - (N-32)/200) + 2000$
-  - Max health for $N \leq 32$ are unchanged.
+  - Linearly scales above 31 opponents.
+  - Old formula (for $N \gt 31$): $H = 40N^2 + 2000$
+  - New Formula (for $N \gt 31$): $H = 40400 + (N-31) * 2400$
+    - In other words: Hale's health linearly scales past 31 opponents.
+  - Max health for $N \leq 31$ is unchanged.
 - Brave Jump:
   - Added a 3 second cooldown. Has a supporting hud element.
 - Round timer:
@@ -56,5 +57,6 @@ Changes:
   - If RED has the point and Hale doesn't do any damage to RED for 30 seconds, an additional 1.05 multiplier is added onto the health drain *each second*.
     - For example This means a $1.05^{15} = 2.08$ multiplier to the health drain per tick after 45 seconds of not dealing damage. The multiplier resets to 1.0 once Hale deals damage.
     - The reverse is also true if Hale owns the point and the mercs don't deal damage to Hale for 30 seconds; Hale's health will regenerate faster via a similar multiplier.
+    - This multiplier resets the moment the team that has the point takes damage from the other team.
   - These changes prevent either side from getting an undeserved victory, as the opponent still has a *slim* chance of winning after the capture.
   - Capturing the point produces exciting gameplay to finish a round as opposed to a sudden cutoff.
