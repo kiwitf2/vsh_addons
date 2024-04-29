@@ -16,6 +16,10 @@ New Features:
   - If a player fails to send a keyboard input for 60 seconds, they are killed.
   - When this happens, Hale's health is reduced to compensate, as though the idle player was never there in the first place.
   - Chat messages are sent to the idle player to give them an opportunity to come back before the idle-death.
+- Killstreaks:
+  - Killstreaks now increment as the mercenaries deal damage to Hale.
+  - The streak increments by 1 for every 200 damage dealt to Hale.
+  - This does NOT produce any killstreak notifications, but it does enable the visual effects of Professional Killstreak items.
 
 Changes:
 - Legend:
