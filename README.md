@@ -28,20 +28,21 @@ Changes:
   - $H$ is the max health of Hale.
 - Hale's health:
   - Linearly scales above 31 opponents.
-  - Old formula (for $N \gt 31$): $H = 40N^2 + 2000$
-  - New Formula (for $N \gt 31$): $H = 40400 + (N-31) * 2400$
-    - In other words: Hale's health linearly scales past 31 opponents.
+    - Old formula (for $N \gt 31$): $H = 40N^2 + 2000$
+    - New Formula (for $N \gt 31$): $H = 40400 + (N-31) * 2400$
   - Max health for $N \leq 31$ is unchanged.
 - Brave Jump:
   - Added a 3 second cooldown. Has a supporting hud element.
 - Round timer:
   - Setup Time:
+    - Extended for high player counts so players can spread out and/or recover from large lag spikes.
     - Old value: 16 seconds.
     - New value: $max(16, N/3)$ seconds.
+      - Peaks at 33 seconds for 100 players.
   - Time before point unlocks:
     - Old value: 4 minutes (drops to 1 minute once only 5 players are alive).
     - New behaviour: Starts at $max(240, 8N)$ seconds, then clamped down to $max(60, 10n)$ seconds during the round (updated on round start and player death).
-  - Stalemate time is unchanged.
+  - Stalemate 3 minutes after the point unlocks remains in place, unless the point is captured.
 - Weapons:
   - Market Gardener and Backstab damage (and anything else using `CalcStabDamage()`) capped at 5000.
     - Affects very high playercounts only.
