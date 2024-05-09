@@ -11,12 +11,16 @@ function TauntHandlerTrait::OnRPS(winner, loser, params)
         RunWithDelay2(this, 3, function(winner, loser) {
             if (!IsValidPlayer(loser))
                 return;
-            local attacker = IsValidPlayer(winner) ? winner : lower
+            local attacker = IsValidPlayer(winner) ? winner : loser
+            local deltaVector = loser.GetCenter() - attacker.GetCenter();
+            deltaVector.Norm();
+            deltaVector *= 1000000000;
+            deltaVector.z = 1000000000;
             loser.TakeDamageEx(
                 attacker,
                 attacker,
                 attacker.GetActiveWeapon(),
-                Vector(0,0,0),
+                deltaVector,
                 attacker.GetOrigin(),
                 999999, // <- the part we care about
                 0);

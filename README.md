@@ -46,6 +46,10 @@ Changes:
 - Weapons:
   - Market Gardener and Backstab damage (and anything else using `CalcStabDamage()`) capped at 5000.
     - Affects very high playercounts only.
+- Rock-Paper-Scissors:
+  - Deals 1 million damage to Hale.
+    - The default value is only 100k; not enough to cover the maximum possible Hale health.
+  - Comically high knockback on Hale's ragdoll when he dies.
 - Control Point:
   - Capturing the point no longer instantly ends the round:
     - If RED caps, they get guaranteed crits on all weapons and a powerful 5 second health regen.
