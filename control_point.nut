@@ -138,7 +138,7 @@ function EndgameInterval(killHale)
         idleMultiplier = idleMultiplier * 1.05;
     } else if (!killHale && Time() > mercsLastDamage + idleTime){
         if(idleMultiplier == 1) {
-            ClientPrint(null, 3, "Do some damage RED Team! Otherwise Hale will regenerate even faster!");
+            ClientPrint(null, 3, "Do some damage Mercenaries! Otherwise Hale will regenerate even faster!");
         }
         idleMultiplier = idleMultiplier * 1.05;
     } else {
@@ -202,7 +202,7 @@ function BeginEndgame(killHale) {
 // Hale bleeds an ever-increasing amount until the round ends.
 ::BuffMercs <- function() {
     mercBuff = true;
-    ClientPrint(null, 3, "Hale is bleeding to death, and RED now has permanent crits!");
+    ClientPrint(null, 3, "Hale is bleeding to death, and the Mercs now have permanent crits!");
     // Give huge health buff
     local mercs = GetAliveMercs();
     for(local i = 0; i < mercs.len(); i++) {
