@@ -20,6 +20,9 @@ New Features:
   - Killstreaks now increment as the mercenaries deal damage to Hale.
   - The streak increments by 1 for every 200 damage dealt to Hale.
   - This does NOT produce any killstreak notifications, but it does enable the visual effects of Professional Killstreak items.
+- Last Player Glow:
+  - Self explanatory.
+  - Prevents that one guy from hiding in a corner for the whole round.
 
 Changes:
 - Legend:
