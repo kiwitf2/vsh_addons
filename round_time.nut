@@ -1,18 +1,22 @@
 // Clamp time for when hale kills mercs quickly.
 // Prevents a round dragging on with few players.
+
+local originalMaxTime = 999;
+
 function ClampRoundTime()
 {
-    local maxTime = ceil(clampFloor(60, aliveMercs.len() * 10));
+    local maxTime = ceil(clampFloor(60, GetAliveMercCount() * 15));
     local currentTime = clampCeiling(GetPropFloat(team_round_timer, "m_flTimerEndTime") - Time(), GetPropFloat(team_round_timer, "m_flTimeRemaining"));
     if (currentTime > maxTime)
     {
         EntFireByHandle(team_round_timer, "SetTime", "" + maxTime, 0, null, null);
+        EntFireByHandle(team_round_timer, "SetMaxTime", "" + originalMaxTime, 0, null, null);
     }
 }
 
-AddListener("death", 0, function(attacker, victim, params)
+AddListener("death", 10, function(attacker, victim, params)
 {
-    ClampRoundTime();
+    RunWithDelay("ClampRoundTime()", null, 0.05);
 });
 
 // Increase setup time for very high player counts.
@@ -26,12 +30,14 @@ AddListener("setup_start", -10, function ()
     EntFireByHandle(team_round_timer, "SetTime", "" + setupTime, 0, null, null);
 });
 
-// Increase round time for high playercounts
+// Scales round time based on playercount
 AddListener("setup_end", 0, function()
 {
-    local time = ceil(clampFloor(240, validMercs.len() * 8));
+    local time = ceil(validMercs.len() * 10);
     EntFireByHandle(team_round_timer, "SetTime", "" + time, 0, null, null);
-    ClampRoundTime();
+    EntFireByHandle(team_round_timer, "SetMaxTime", "" + time, 0, null, null);
+    originalMaxTime = time;
+    RunWithDelay("ClampRoundTime()", null, 0.05);
 });
 
 // OVERRIDE: Replacement for listener in /_gamemode/round_logic.nut

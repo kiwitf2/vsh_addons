@@ -76,6 +76,7 @@ function AdjustHaleHealth(booted)
     // Need this because all the damage modifiers in the VScript fuck with the calculations.
     local actualNewHealth = boss.GetHealth();
     local actualHealthPenalty = currHealth - actualNewHealth;
+    RunWithDelay("ClampRoundTime()", null, 0.05);
     ClientPrint(null, 3, "Removed " + actualHealthPenalty + " health from Hale to compensate for idling players.");
 }
 
