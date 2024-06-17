@@ -30,10 +30,21 @@ Changes:
   - $N$ is the number of RED players at the start of the round.
   - $H$ is the max health of Hale.
 - Hale's health:
-  - Linearly scales above 31 opponents.
-    - Old formula (for $N \gt 31$): $H = 40N^2 + 2000$
-    - New Formula (for $N \gt 31$): $H = 40400 + (N-31) * 2400$
-  - Max health for $N \leq 31$ is unchanged.
+  - Changed the formula to match that used in [vsh_facility](https://steamcommunity.com/sharedfiles/filedetails/?id=3225055613), but with a lower (and cleaner) cutoff for linear scaling.
+
+    | Mercs   (N)| Old Formula         |
+    |:-----------|:--------------------|
+    | 1          | $H = 1000$          |
+    | 2 - 5      | $H = 40N^2 + 1300$  |
+    | 6+         | $H = 40N^2 + 2000$  |
+
+    | Mercs   (N)| New Formula               |
+    |:-----------|:--------------------------|
+    | 1          | $H = 1000$                |
+    | 2 - 5      | $H = 41N^2 + 1175$        |
+    | 6 - 23     | $H = 41N^2 + 2350$        |
+    | 24+        | $H = 2000(N-23) + 24000$  |
+
 - Brave Jump:
   - Added a 3 second cooldown. Has a supporting hud element.
 - Round timer:

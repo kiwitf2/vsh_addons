@@ -1,19 +1,23 @@
 // Separate function so we can get maxhealth without setting the maxHealth variable.
-::GetStartingHealth <- function(mercCount)
+::GetStartingHealth <- function(enemyCount)
 {
-    if (mercCount < 2)
-    {
+    local linearCutoff = 23;
+    if (enemyCount < 2)
         return 1000;
-    } else if (mercCount > 31) {
-        local baseHealth = GetStartingHealth(31);
-        local increment = baseHealth - GetStartingHealth(30);
-        local unroundedH = baseHealth + (increment * (mercCount - 31));
-        local roundedH = floor(unroundedH / 100) * 100;
-        return roundedH;
+    local unrounded;
+    if (enemyCount <= linearCutoff)
+    {
+        local constant = 2350;
+        if (enemyCount < 6)
+            constant /= 2;
+        unrounded = enemyCount * enemyCount * 41 + constant;
     }
-    local unrounded = mercCount * mercCount * API_GetFloat("health_factor") + (mercCount < 6 ? 1300 : 2000);
-    local rounded = floor(unrounded / 100) * 100;
-    return rounded;
+    else {
+        local baseHealth = 24000;
+        local increment = 2000;
+        unrounded = baseHealth + (increment * (enemyCount - linearCutoff));
+    }
+    return floor(unrounded / 100) * 100;
 }
 
 // OVERRIDE: Reduce health for higher player counts
