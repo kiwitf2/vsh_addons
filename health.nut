@@ -7,9 +7,7 @@
     local unrounded;
     if (enemyCount <= linearCutoff)
     {
-        local constant = 2350;
-        if (enemyCount < 6)
-            constant /= 2;
+        local constant = 2350 * clampCeiling(1.0, 0.3 + (enemyCount/10.0));
         unrounded = enemyCount * enemyCount * 41 + constant;
     }
     else {
