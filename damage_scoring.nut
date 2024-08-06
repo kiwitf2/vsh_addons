@@ -9,7 +9,7 @@ function BroadcastDamageOnDeath(attacker, victim, deadRinger = false) {
 
     local target = deadRinger ? GetBossPlayers()[0] : null;
 
-    ClientPrint(target, 3, "Player '"+name+"' dealt "+damage+" damage to Hale before dying."+(damage ? "" : " How embarrassing!"));
+    ClientPrint(target, 3, name+" dealt "+damage+" damage to Hale before dying."+(damage ? "" : " How embarrassing!"));
 }
 
 // Broadcast top players at end of round.
@@ -26,13 +26,13 @@ function BroadcastBestPlayers()
         }
     }
 
-    if(damageBoard.len() == 0 && (IsAnyBossAlive() || IsRoundSetup()))
+    if(damageBoard.len() == 0 && IsAnyBossAlive() && !IsRoundSetup())
     {
         ClientPrint(null, 3, "None of you managed to scratch Hale this round. Pathetic!");
         return;
     }
     local playerDamage = 0;
-    ClientPrint(null, 3, "Top players this round:");
+    ClientPrint(null, 3, "Saxton killed " + (startMercCount - GetAliveMercCount()) + "/" + startMercCount + " mercs. Top players this round:");
     for(local i = 0; i < damageBoard.len(); i++) {
         local name = GetPropString(damageBoard[i][0], "m_szNetname");
         local damage = damageBoard[i][1];
