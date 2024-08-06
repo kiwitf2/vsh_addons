@@ -33,7 +33,7 @@ AddListener("setup_start", -10, function ()
 // Scales round time based on playercount
 AddListener("setup_end", 0, function()
 {
-    local time = ceil(validMercs.len() * 10);
+    local time = clampFloor(30, ceil(validMercs.len() * 10));
     EntFireByHandle(team_round_timer, "SetTime", "" + time, 0, null, null);
     EntFireByHandle(team_round_timer, "SetMaxTime", "" + time, 0, null, null);
     originalMaxTime = time;

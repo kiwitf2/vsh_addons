@@ -55,7 +55,7 @@ Changes:
       - Peaks at 33 seconds for 100 players.
   - Time before point unlocks:
     - Old value: 4 minutes (drops to 1 minute once only 5 players are alive).
-    - New behaviour: Starts at 10N seconds, then clamped down to $max(60, 15n)$ seconds during the round (updated on round start and player death).
+    - New behaviour: Starts at $max(30, 10N)$ seconds, then clamped down to $max(60, 15n)$ seconds during the round (updated on round start and player death).
   - Stalemate 3 minutes after the point unlocks remains in place, unless the point is captured.
 - Weapons:
   - Market Gardener and Backstab damage (and anything else using `CalcStabDamage()`) capped at 5000.
