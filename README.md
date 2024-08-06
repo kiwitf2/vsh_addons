@@ -20,8 +20,9 @@ New Features:
   - Killstreaks now increment as the mercenaries deal damage to Hale.
   - The streak increments by 1 for every 200 damage dealt to Hale.
   - This does NOT produce any killstreak notifications, but it does enable the visual effects of Professional Killstreak items.
-- Last Player Glow:
-  - Self explanatory.
+- Player Glows:
+  - Mercs can be seen when they're the last merc standing or when Hale caps the point.
+  - Hale can be seen through walls when facing the last merc or when mercs cap the point.
   - Prevents that one guy from hiding in a corner for the whole round.
 
 Changes:

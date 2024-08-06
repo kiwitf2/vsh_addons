@@ -42,7 +42,7 @@ IncludeScript("vsh_addons/brave_jump_dampening.nut");
 IncludeScript("vsh_addons/rps_damage_increase.nut");
 IncludeScript("vsh_addons/anti_afk.nut");
 IncludeScript("vsh_addons/killstreaks.nut");
-IncludeScript("vsh_addons/glow_last_player.nut")
+IncludeScript("vsh_addons/player_glows.nut")
 
 // OVERRIDE: Clamp stab damage (and market gardner) to 5000 max
 function CalcStabDamage(victim)
