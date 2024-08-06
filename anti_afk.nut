@@ -46,32 +46,35 @@ function AdjustHaleHealth(booted)
     local bootCount = booted.len();
     if(adjustedMercCount < 0) adjustedMercCount = startMercCount;
     local oldMercCount = adjustedMercCount;
-    adjustedMercCount = adjustedMercCount - bootCount;
 
-    if(bootCount <= 0 || adjustedMercCount <= 0) return;
+    if(bootCount <= 0 || adjustedMercCount - bootCount <= 0) return;
 
     local boss = GetBossPlayers()[0];
     local currHealth = boss.GetHealth();
     local oldMaxHealth = GetStartingHealth(oldMercCount);
-    local adjustedMaxHealth = GetStartingHealth(adjustedMercCount);
+    local adjustedMaxHealth = oldMaxHealth;
 
-    local healthDiff = oldMaxHealth - adjustedMaxHealth;
+    local damageToDeal = 0;
 
-    local damageDealtByAFKPlayers = 0;
+    // Calculate the shift in hale's max health that would result from this number of players disconnecting.
+    // Calculate the amount of damage we should deal such that the ratio between current health and damage dealt geometrically matches the shift in max health we'd expect.
+    // Subtract any damage already dealt by the players that are now AFK.
     foreach(player in booted)
     {
-        local damage = GetRoundDamage(player);
-        damageDealtByAFKPlayers = damageDealtByAFKPlayers + damage;
+        local damageByPlayer = GetRoundDamage(player);
+        adjustedMercCount--;
+        damageToDeal += clampFloor(0, adjustedMaxHealth - GetStartingHealth(adjustedMercCount) - damageByPlayer);
+        adjustedMaxHealth = GetStartingHealth(adjustedMercCount);
     }
 
     // This is the formula used in received_damage_scaling
     local mercMultiplier = clampFloor(1, 1.85 - (GetAliveMercCount() * 1.0) / adjustedMercCount);
 
-    local healthPenalty = floor(clampCeiling((currHealth - 1) / mercMultiplier,  healthDiff * (currHealth / oldMaxHealth))) - damageDealtByAFKPlayers;
+    local healthPenalty = floor(clampCeiling((currHealth - 100) / mercMultiplier,  damageToDeal * (currHealth / oldMaxHealth) / mercMultiplier));
 
     if(healthPenalty <= 0) return;
 
-    boss.TakeDamageCustom(boss, boss, null, Vector(0.000001, 0.000001, 0.000001), Vector(0.000001, 0.000001, 0.000001), healthPenalty, DMG_PREVENT_PHYSICS_FORCE, TF_DMG_CUSTOM_BLEEDING);
+    boss.TakeDamageCustom(null, boss, null, Vector(0.000001, 0.000001, 0.000001), Vector(0.000001, 0.000001, 0.000001), healthPenalty, DMG_BURN + DMG_PREVENT_PHYSICS_FORCE, TF_DMG_CUSTOM_BLEEDING);
 
     // Need this because all the damage modifiers in the VScript fuck with the calculations.
     local actualNewHealth = boss.GetHealth();
