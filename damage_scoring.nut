@@ -9,7 +9,7 @@ function BroadcastDamageOnDeath(attacker, victim, deadRinger = false) {
 
     local target = deadRinger ? GetBossPlayers()[0] : null;
 
-    ClientPrint(target, 3, name+" dealt "+damage+" damage to Hale before dying."+(damage ? "" : " How embarrassing!"));
+    ClientPrint(target, 3, "" + name +" dealt "+damage+" damage to Hale before dying."+(damage ? "" : " How embarrassing!"));
 }
 
 // Broadcast top players at end of round.
@@ -26,7 +26,11 @@ function BroadcastBestPlayers()
         }
     }
 
-    if(damageBoard.len() == 0 && IsAnyBossAlive() && !IsRoundSetup())
+    if(IsRoundSetup()) {
+        return;
+    }
+
+    if(damageBoard.len() == 0 && IsAnyBossAlive())
     {
         ClientPrint(null, 3, "None of you managed to scratch Hale this round. Pathetic!");
         return;
