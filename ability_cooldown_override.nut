@@ -103,3 +103,26 @@ function SweepingChargeTrait::Finish()
     EntFireByHandle(triggerCatapult, "Disable", "", 0, boss, boss)
     boss.AddCustomAttribute("no_attack", 1, 0.5);
 }
+
+// Update the meters to show the correct cooldowns
+
+function MightySlamTrait::MeterAsPercentage()
+{
+    if (meter < 0)
+        return (newMightySlamCooldown + meter) * 90 / newMightySlamCooldown;
+    return inUse ? 200 : 100
+}
+
+function SaxtonPunchTrait::MeterAsPercentage()
+{
+    if (meter < 0)
+        return (newSaxtonPunchCooldown + meter) * 90 / newSaxtonPunchCooldown;
+    return 200;
+}
+
+function SweepingChargeTrait::MeterAsPercentage()
+{
+    if (meter < 0)
+        return (newSweepingChargeCooldown + meter) * 90 / newSweepingChargeCooldown;
+    return isCurrentlyDashing ? 200 : 100
+}
