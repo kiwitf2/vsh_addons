@@ -65,6 +65,8 @@ Changes:
   - Deals 1 million damage to Hale.
     - The default value is only 100k; not enough to cover the maximum possible Hale health.
   - Comically high knockback on Hale's ragdoll when he dies.
+- Mighty Slam:
+  - Fixed check to prevent low damage (<=30) hits killing low health (<=30) players.
 - Control Point:
   - Capturing the point no longer instantly ends the round:
     - If RED caps, they get guaranteed crits on all weapons and a powerful 5 second health regen.

@@ -20,7 +20,7 @@ function MightySlamTrait::Perform() {
             local damage = target.GetMaxHealth() * (1 - distance / 500);
             if (!target.IsPlayer())
                 damage *= 2;
-            if (damage <= 30 && target.GetMaxHealth() <= 30)
+            if (damage <= 30 && target.GetHealth() <= 30)
                 return; // We don't want to have people on low health die because Hale just Slammed a mile away.
             target.TakeDamageEx(
                 bossLocal,
