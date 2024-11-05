@@ -1,5 +1,6 @@
 local jumped = false;
 local jumpCooldown = 3;
+local lastDisplayTime = Time()
 
 function BraveJumpTrait::OnFrameTickAlive()
 {
@@ -19,7 +20,15 @@ function BraveJumpTrait::OnFrameTickAlive()
     {
         if(Time() < lastTimeJumped + jumpCooldown)
         {
-            return;
+            if (lastDisplayTime + 0.7 <= Time())
+            {
+                // shows brave jump timer in chat upon trying to doublejump (to counteract some players not being able to see game_text_tf)
+                // hello hi kiwi here probablyt a better way to do this but im stupid :steamhappy:
+                local jumpTimeCeil = ceil(3 - (Time() - lastTimeJumped))
+                ClientPrint(boss, 3, "\x03Brave Jump ready in " + jumpTimeCeil + " seconds.")
+                lastDisplayTime = Time()
+            }
+            return
         }
 
         lastTimeJumped = Time();
