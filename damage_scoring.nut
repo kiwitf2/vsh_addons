@@ -8,8 +8,10 @@ function BroadcastDamageOnDeath(attacker, victim, deadRinger = false) {
     local damage = GetRoundDamage(victim);
 
     local target = deadRinger ? GetBossPlayers()[0] : null;
-
-    ClientPrint(target, 3, "" + name +" dealt "+damage+" damage to Hale before dying."+(damage ? "" : " How embarrassing!"));
+    if (victim.GetTeam() == 2)
+        ClientPrint(target, 3, "\x07FF3F3F" + name +" \x01dealt \x07FF3F3F"+damage+" \x01damage to Hale before dying."+(damage ? "" : " \x01How embarrassing!"));
+    if (victim.GetTeam() == 3)
+        ClientPrint(target, 3, "\x0799CCFF" + name +" \x01dealt \x0799CCFF"+damage+" \x01damage to Hale before dying."+(damage ? "" : " \x01How embarrassing!"));
 }
 
 // Broadcast top players at end of round.
@@ -39,11 +41,15 @@ function BroadcastBestPlayers()
     ClientPrint(null, 3, "Saxton killed " + (startMercCount - GetAliveMercCount()) + "/" + startMercCount + " mercs. Top players this round:");
     for(local i = 0; i < damageBoard.len(); i++) {
         local name = GetPropString(damageBoard[i][0], "m_szNetname");
+        local playerTeam = damageBoard[i][0].GetTeam()
         local damage = damageBoard[i][1];
         local percent = floor(100 * damage / maxHealth);
         playerDamage += damage;
         if(i < topN && damage > 0) {
-            ClientPrint(null, 3, "#"+(i+1)+": "+name+" dealt "+damage+" damage ("+percent+"%)");
+            if (playerTeam == 2)
+                ClientPrint(null, 3, "\x01#"+(i+1)+": \x07FF3F3F" + name + "\x01 dealt \x07FF3F3F" + damage + "\x01 damage (\x07FF3F3F" + percent + "%\x01)");
+            if (playerTeam == 3)
+                ClientPrint(null, 3, "\x01#"+(i+1)+": \x0799CCFF" + name + "\x01 dealt \x0799CCFF" + damage + "\x01 damage (\x0799CCFF" + percent + "%\x01)");
         }
     }
     local netDamage = maxHealth - currentHealth;
