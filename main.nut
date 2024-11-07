@@ -44,6 +44,7 @@ IncludeScript("vsh_addons/anti_afk.nut");
 IncludeScript("vsh_addons/killstreaks.nut");
 IncludeScript("vsh_addons/mighty_slam_fix.nut");
 IncludeScript("vsh_addons/player_glows.nut");
+IncludeScript("vsh_addons/gardennotify.nut");
 
 // OVERRIDE: Clamp stab damage (and market gardner) to 5000 max
 function CalcStabDamage(victim)
