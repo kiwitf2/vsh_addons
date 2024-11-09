@@ -1,6 +1,4 @@
-printl("stupid thing")
 characterTraitsClasses[6].OnDamageDealt <-  function(victim, params) {
-    printl("spy fuction ran")
     if (params.damage_custom == TF_DMG_CUSTOM_BACKSTAB)
     {
         local attackerName = GetPropString(player, "m_szNetname");
@@ -30,14 +28,13 @@ characterTraitsClasses[6].OnDamageDealt <-  function(victim, params) {
         if (WeaponIs(player.GetWeaponBySlot(TF_WEAPONSLOTS.PRIMARY), "diamondback"))
             AddPropInt(player, "m_Shared.m_iRevengeCrits", 2);
         if (player.GetTeam() == 2)
-            ClientPrint(null, 3, "\x07FF3F3F" + attackerName + " \x01Backstabbed \x0799CCFFHale\x01!")
+            ClientPrint(null, 3, "\x07FF3F3F" + attackerName + " \x01backstabbed Hale!")
         if (player.GetTeam() == 3)
-            ClientPrint(null, 3, "\x0799CCFF" + attackerName + " \x01Backstabbed \x07FF3F3FHale\x01!")
+            ClientPrint(null, 3, "\x0799CCFF" + attackerName + " \x01backstabbed Hale!")
     }
 }
 
 characterTraitsClasses[22].OnDamageDealt <-  function(victim, params) {
-    printl("gardener fuction ran")
     if (player.InCond(TF_COND_BLASTJUMPING) && WeaponIs(params.weapon, "market_gardener"))
         {
             params.damage = vsh_vscript.CalcStabDamage(victim) / 2.5;
@@ -45,8 +42,11 @@ characterTraitsClasses[22].OnDamageDealt <-  function(victim, params) {
             EmitSoundOn("vsh_sfx.gardened", player);
             EmitPlayerVODelayed(player, "gardened", 0.3);
             if (player.GetTeam() == 2)
-                ClientPrint(null, 3, "\x07FF3F3F" + attackerName + " \x01Gardened \x0799CCFFHale\x01!")
+                ClientPrint(null, 3, "\x07FF3F3F" + attackerName + " \x01gardened Hale!")
             if (player.GetTeam() == 3)
-                ClientPrint(null, 3, "\x0799CCFF" + attackerName + " \x01Gardened \x07FF3F3FHale\x01!")
+                ClientPrint(null, 3, "\x0799CCFF" + attackerName + " \x01gardened Hale!")
         }
 }
+
+if (IsDedicatedServer() == true){
+    local host = GetListenServerHost()}

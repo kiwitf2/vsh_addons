@@ -38,7 +38,14 @@ function BroadcastBestPlayers()
         return;
     }
     local playerDamage = 0;
-    ClientPrint(null, 3, "Saxton killed " + (startMercCount - GetAliveMercCount()) + "/" + startMercCount + " mercs. Top players this round:");
+    if (TF_TEAM_BOSS == 2)
+        {
+            ClientPrint(null, 3, "\x07FF3F3FSaxton \x01killed " + (startMercCount - GetAliveMercCount()) + "/" + startMercCount + " mercs. Top players this round:");
+        }
+    if (TF_TEAM_BOSS == 3)
+        {
+            ClientPrint(null, 3, "\x0799CCFFSaxton \x01killed " + (startMercCount - GetAliveMercCount()) + "/" + startMercCount + " mercs. Top players this round:");
+        }
     for(local i = 0; i < damageBoard.len(); i++) {
         local name = GetPropString(damageBoard[i][0], "m_szNetname");
         local playerTeam = damageBoard[i][0].GetTeam()
