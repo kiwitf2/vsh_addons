@@ -20,14 +20,14 @@ function BraveJumpTrait::OnFrameTickAlive()
     {
         if(Time() < lastTimeJumped + jumpCooldown)
         {
-            if (lastDisplayTime + 0.7 <= Time())
-            {
-                // shows brave jump timer in chat upon trying to doublejump (to counteract some players not being able to see game_text_tf)
-                // hello hi kiwi here probablyt a better way to do this but im stupid :steamhappy:
-                local jumpTimeCeil = ceil(3 - (Time() - lastTimeJumped))
-                ClientPrint(boss, 3, "\x03Brave Jump ready in " + jumpTimeCeil + " seconds.")
-                lastDisplayTime = Time()
-            }
+            // if (lastDisplayTime + 0.7 <= Time())
+            // {
+            //     // shows brave jump timer in chat upon trying to doublejump (to counteract some players not being able to see game_text_tf)
+            //     // hello hi kiwi here probablyt a better way to do this but im stupid :steamhappy:
+            //     local jumpTimeCeil = ceil(3 - (Time() - lastTimeJumped))
+            //     ClientPrint(boss, 4, "\x03Brave Jump ready in " + jumpTimeCeil + " seconds.")
+            //     lastDisplayTime = Time()
+            // }
             return
         }
 
@@ -87,33 +87,9 @@ function BraveJumpTrait::Perform()
     SetPropEntity(boss, "m_hGroundEntity", null);
     boss.SetAbsVelocity(currentVelocity + newVelocity);
 
-    cooldown_text_tf = SpawnEntityFromTable("game_text_tf", {
-        message = "Brave Jump ready in "+jumpCooldown+"...",
-        icon = "ico_notify_flag_moving_alt",
-        background = 0,
-        display_to_team = TF_TEAM_BOSS
-    });
-
-    EntFireByHandle(cooldown_text_tf, "Display", "", 0.1, boss, boss);
     for(local i = 1; i < jumpCooldown; i++)
     {
-        EntFireByHandle(cooldown_text_tf, "AddOutput", "message Brave Jump ready in "+(jumpCooldown - i)+"...", i - 0.1, boss, boss);
-        EntFireByHandle(cooldown_text_tf, "Display", "", i, boss, boss);
+        ClientPrint(boss, 4, "Brave Jump ready in " + (jumpCooldown - i) + " seconds.")
     }
-    EntFireByHandle(cooldown_text_tf, "AddOutput", "message Brave Jump ready!", jumpCooldown - 0.1, boss, boss);
-    EntFireByHandle(cooldown_text_tf, "AddOutput", "background "+TF_TEAM_BOSS, jumpCooldown - 0.1, boss, boss);
-    EntFireByHandle(cooldown_text_tf, "Display", "", jumpCooldown, player, player);
-    EntFireByHandle(cooldown_text_tf, "Kill", "", jumpCooldown+0.1, player, player);
-}
-
-function BraveJumpTrait::NotifyJump()
-{
-    local text_tf = SpawnEntityFromTable("game_text_tf", {
-        message = "#ClassTips_1_2",
-        icon = "ico_notify_flag_moving_alt",
-        background = TF_TEAM_BOSS,
-        display_to_team = TF_TEAM_BOSS
-    });
-    EntFireByHandle(text_tf, "Display", "", 0.1, player, player);
-    EntFireByHandle(text_tf, "Kill", "", 1, player, player);
+    ClientPrint(boss, 4, "Brave Jump Ready!")
 }
