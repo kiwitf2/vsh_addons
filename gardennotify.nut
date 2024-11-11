@@ -28,9 +28,9 @@ characterTraitsClasses[6].OnDamageDealt <-  function(victim, params) {
         if (WeaponIs(player.GetWeaponBySlot(TF_WEAPONSLOTS.PRIMARY), "diamondback"))
             AddPropInt(player, "m_Shared.m_iRevengeCrits", 2);
         if (player.GetTeam() == 2)
-            ClientPrint(null, 3, "\x07FF3F3F" + attackerName + " \x01backstabbed Hale!")
+            ClientPrint(null, 3, "\x07FF3F3F" + attackerName + " \x07FCD303backstabbed \x01Hale!")
         if (player.GetTeam() == 3)
-            ClientPrint(null, 3, "\x0799CCFF" + attackerName + " \x01backstabbed Hale!")
+            ClientPrint(null, 3, "\x0799CCFF" + attackerName + " \x07FCD303backstabbed \x01Hale!")
     }
 }
 
@@ -42,9 +42,9 @@ characterTraitsClasses[22].OnDamageDealt <-  function(victim, params) {
             EmitSoundOn("vsh_sfx.gardened", player);
             EmitPlayerVODelayed(player, "gardened", 0.3);
             if (player.GetTeam() == 2)
-                ClientPrint(null, 3, "\x07FF3F3F" + attackerName + " \x01gardened Hale!")
+                ClientPrint(null, 3, "\x07FF3F3F" + attackerName + " \x07FCD303gardened \x01Hale!")
             if (player.GetTeam() == 3)
-                ClientPrint(null, 3, "\x0799CCFF" + attackerName + " \x01gardened Hale!")
+                ClientPrint(null, 3, "\x0799CCFF" + attackerName + " \x07FCD303gardened \x01Hale!")
         }
 }
 

@@ -40,14 +40,20 @@ function BroadcastBestPlayers()
     local playerDamage = 0;
     if (TF_TEAM_BOSS == 2)
         {
-            ClientPrint(null, 3, "\x07FF3F3FSaxton \x01killed " + (startMercCount - GetAliveMercCount()) + "/" + startMercCount + " mercs. Top players this round:");
+            ClientPrint(null, 3, "\x07FF3F3FSaxton \x01killed \x07FF3F3F" + (startMercCount - GetAliveMercCount()) + "/" + startMercCount + "\x01 mercs. Top players this round:");
         }
     if (TF_TEAM_BOSS == 3)
         {
-            ClientPrint(null, 3, "\x0799CCFFSaxton \x01killed " + (startMercCount - GetAliveMercCount()) + "/" + startMercCount + " mercs. Top players this round:");
+            ClientPrint(null, 3, "\x0799CCFFSaxton \x01killed \x0799CCFF" + (startMercCount - GetAliveMercCount()) + "/" + startMercCount + "\x01 mercs. Top players this round:");
         }
     for(local i = 0; i < damageBoard.len(); i++) {
+        if (damageBoard[i][0].IsValid() == false) {
+            continue;
+        }
         local name = GetPropString(damageBoard[i][0], "m_szNetname");
+        if (name == "") {
+            continue;
+        }
         local playerTeam = damageBoard[i][0].GetTeam()
         local damage = damageBoard[i][1];
         local percent = floor(100 * damage / maxHealth);
